@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Supported Bang URLs</title>
+        <style>
+            html,
+            body {
+                height: 100%;
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
+            .container {
+                margin: 2em auto;
+                max-width: 800px;
+                text-align: center;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 1em;
+            }
+            th,
+            td {
+                padding: 0.75em;
+                border: 1px solid #000;
+                text-align: left;
+            }
+            th {
+                font-weight: bold;
+            }
+            a {
+                text-decoration: none;
+                font-size: 0.9em;
+                border: 1px solid #000;
+                padding: 0.3em 0.7em;
+            }
+            #error {
+                margin-top: 1em;
+                font-size: 0.9em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Supported Bang URLs</h1>
+            <p>
+                The following table lists the supported bang commands and their
+                search URL templates.
+            </p>
+            <table id="bangTable">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Search URL</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div id="error"></div>
+            <p>
+                <a href="index.html">Back to Bang Search</a>
+            </p>
+        </div>
+
+        <script>
+            // Global map for key to search URL.
+            let bangMap = {};
+
+            async function loadBangs() {
+                try {
+                    const response = await fetch("bangs.csv");
+                    if (!response.ok) {
+                        throw new Error("Failed to load bangs.csv");
+                    }
+                    const text = await response.text();
+                    parseCSV(text);
+                    renderTable();
+                } catch (error) {
+                    console.error(error);
+                    document.getElementById("error").textContent =
+                        "Error loading bang commands.";
+                }
+            }
+
+            function parseCSV(csvText) {
+                const lines = csvText.trim().split("\n");
+                let startIndex = 0;
+                if (lines[0].toLowerCase().includes("key")) {
+                    startIndex = 1;
+                }
+                for (let i = startIndex; i < lines.length; i++) {
+                    const parts = lines[i].split(",");
+                    if (parts.length >= 2) {
+                        let key = parts[0].trim();
+                        let searchUrl = parts[1].trim();
+                        if (key && searchUrl) {
+                            bangMap[key] = searchUrl;
+                        }
+                    }
+                }
+            }
+
+            function renderTable() {
+                const tbody = document.querySelector("#bangTable tbody");
+                tbody.innerHTML = "";
+                for (const key in bangMap) {
+                    if (Object.hasOwnProperty.call(bangMap, key)) {
+                        const url = bangMap[key];
+                        const tr = document.createElement("tr");
+
+                        const keyTd = document.createElement("td");
+                        keyTd.textContent = key;
+                        tr.appendChild(keyTd);
+
+                        const urlTd = document.createElement("td");
+                        const sampleUrl = url.replace(
+                            "%s",
+                            encodeURIComponent("sample"),
+                        );
+                        const link = document.createElement("a");
+                        link.href = sampleUrl;
+                        link.target = "_blank";
+                        link.textContent = sampleUrl;
+                        urlTd.appendChild(link);
+                        tr.appendChild(urlTd);
+
+                        tbody.appendChild(tr);
+                    }
+                }
+            }
+
+            window.addEventListener("DOMContentLoaded", loadBangs);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,16 @@
+key,search_url
+amz,https://www.amazon.com/s?k=%s
+b,https://www.bing.com/search?q=%s
+ddg,https://duckduckgo.com/?q=%s
+g,https://www.google.com/search?q=%s
+gh,https://github.com/search?q=%s
+gi,https://www.google.com/search?q=%s&tbm=isch
+gm,https://www.google.com/maps?q=%s
+imdb,https://www.imdb.com/find?q=%s
+p,https://www.perplexity.ai/?q=%s
+r,https://www.reddit.com/search?q=%s
+t,https://t3.chat/new?q=%s
+t3,https://t3.chat/new?q=%s
+tw,https://twitter.com/search?q=%s
+w,https://en.wikipedia.org/wiki/Special:Search?search=%s
+yt,https://www.youtube.com/results?search_query=%s

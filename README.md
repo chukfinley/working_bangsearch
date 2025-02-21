@@ -6,3 +6,7 @@ feel free to open an [issue](https://github.com/chukfinley/working_bangsearch/is
 
 
 idk i had to set the csv file url to the github one because even if updated on web server it did not work.
+
+oh btw this is inspired by [t3.gg one](https://unduck.link/) but his one is trash 
+
+will get my own domain for this later no idear what to name it.

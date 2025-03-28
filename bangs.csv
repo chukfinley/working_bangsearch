@@ -14,3 +14,4 @@ t3,https://t3.chat/new?q=%s
 tw,https://twitter.com/search?q=%s
 w,https://en.wikipedia.org/wiki/Special:Search?search=%s
 yt,https://www.youtube.com/results?search_query=%s
+e,https://www.ebay.de/sch/i.html?_nkw=%s
